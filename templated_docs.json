@@ -1,0 +1,155 @@
+[
+  {
+    "Command": [],
+    "Constant": [],
+    "Constructor": [],
+    "Deprecated": [],
+    "Field": [],
+    "Function": [],
+    "Method": [
+      {
+        "def": "MacroPad:bindHotkeys(mapping)",
+        "def_gfm": "MacroPad:bindHotkeys(mapping)",
+        "desc": "Binds hotkeys for ReloadConfiguration",
+        "doc": "Binds hotkeys for ReloadConfiguration\n\nParameters:\n * mapping - A table containing hotkey modifier/key details for the following items:\n  * toggleMute - This will toggle MicMute in meeting apps like Teams and Zoom",
+        "doc_gfm": "<p>Binds hotkeys for ReloadConfiguration</p>\n<p>Parameters:</p>\n<ul>\n<li>mapping - A table containing hotkey modifier/key details for the following items:</li>\n<li>toggleMute - This will toggle MicMute in meeting apps like Teams and Zoom</li>\n</ul>\n",
+        "examples": [],
+        "file": "Source/MacroPad.spoon/init.lua",
+        "lineno": "22",
+        "name": "bindHotkeys",
+        "notes": [],
+        "notes_gfm": "",
+        "parameters": [
+          " * mapping - A table containing hotkey modifier/key details for the following items:\n   * toggleMute - This will toggle MicMute in meeting apps like Teams and Zoom"
+        ],
+        "parameters_gfm": "<ul>\n<li>mapping - A table containing hotkey modifier/key details for the following items:<ul>\n<li>toggleMute - This will toggle MicMute in meeting apps like Teams and Zoom</li>\n</ul>\n</li>\n</ul>\n",
+        "returns": [],
+        "returns_gfm": "",
+        "signature": "MacroPad:bindHotkeys(mapping)",
+        "stripped_doc": "",
+        "type": "Method"
+      },
+      {
+        "def": "MacroPad:raiseHand()",
+        "def_gfm": "MacroPad:raiseHand()",
+        "desc": "It toggles the raised hand state on the first application it finds.",
+        "doc": "It toggles the raised hand state on the first application it finds.\n\nParameters:\n * None",
+        "doc_gfm": "<p>It toggles the raised hand state on the first application it finds.</p>\n<p>Parameters:</p>\n<ul>\n<li>None</li>\n</ul>\n",
+        "examples": [],
+        "file": "Source/MacroPad.spoon/init.lua",
+        "lineno": "54",
+        "name": "raiseHand",
+        "notes": [],
+        "notes_gfm": "",
+        "parameters": [
+          " * None"
+        ],
+        "parameters_gfm": "<ul>\n<li>None</li>\n</ul>\n",
+        "returns": [],
+        "returns_gfm": "",
+        "signature": "MacroPad:raiseHand()",
+        "stripped_doc": "",
+        "type": "Method"
+      },
+      {
+        "def": "MacroPad:toggleMute()",
+        "def_gfm": "MacroPad:toggleMute()",
+        "desc": "It toggles the microphone mute state on the first application it finds.",
+        "doc": "It toggles the microphone mute state on the first application it finds.\n\nParameters:\n * None",
+        "doc_gfm": "<p>It toggles the microphone mute state on the first application it finds.</p>\n<p>Parameters:</p>\n<ul>\n<li>None</li>\n</ul>\n",
+        "examples": [],
+        "file": "Source/MacroPad.spoon/init.lua",
+        "lineno": "37",
+        "name": "toggleMute",
+        "notes": [],
+        "notes_gfm": "",
+        "parameters": [
+          " * None"
+        ],
+        "parameters_gfm": "<ul>\n<li>None</li>\n</ul>\n",
+        "returns": [],
+        "returns_gfm": "",
+        "signature": "MacroPad:toggleMute()",
+        "stripped_doc": "",
+        "type": "Method"
+      }
+    ],
+    "Variable": [],
+    "desc": "This is a helper module for the JC Pro Macro 2 Pad. It needs appropiate code on the board!",
+    "desc_gfm": "<p>This is a helper module for the JC Pro Macro 2 Pad. It needs appropiate code on the board!</p>\n",
+    "doc": "This is a helper module for the JC Pro Macro 2 Pad. It needs appropiate code on the board!\nIt provides some useful functions and controls the LEDs on the board (not yet).\n\nThings like mute and raiseHand support common meeting apps I use. If you need another one,\nfeel free to add the keyStrokes to the lists.\n",
+    "doc_gfm": "<p>This is a helper module for the JC Pro Macro 2 Pad. It needs appropiate code on the board!\nIt provides some useful functions and controls the LEDs on the board (not yet).</p>\n<p>Things like mute and raiseHand support common meeting apps I use. If you need another one,\nfeel free to add the keyStrokes to the lists.</p>\n",
+    "items": [
+      {
+        "def": "MacroPad:bindHotkeys(mapping)",
+        "def_gfm": "MacroPad:bindHotkeys(mapping)",
+        "desc": "Binds hotkeys for ReloadConfiguration",
+        "doc": "Binds hotkeys for ReloadConfiguration\n\nParameters:\n * mapping - A table containing hotkey modifier/key details for the following items:\n  * toggleMute - This will toggle MicMute in meeting apps like Teams and Zoom",
+        "doc_gfm": "<p>Binds hotkeys for ReloadConfiguration</p>\n<p>Parameters:</p>\n<ul>\n<li>mapping - A table containing hotkey modifier/key details for the following items:</li>\n<li>toggleMute - This will toggle MicMute in meeting apps like Teams and Zoom</li>\n</ul>\n",
+        "examples": [],
+        "file": "Source/MacroPad.spoon/init.lua",
+        "lineno": "22",
+        "name": "bindHotkeys",
+        "notes": [],
+        "notes_gfm": "",
+        "parameters": [
+          " * mapping - A table containing hotkey modifier/key details for the following items:\n   * toggleMute - This will toggle MicMute in meeting apps like Teams and Zoom"
+        ],
+        "parameters_gfm": "<ul>\n<li>mapping - A table containing hotkey modifier/key details for the following items:<ul>\n<li>toggleMute - This will toggle MicMute in meeting apps like Teams and Zoom</li>\n</ul>\n</li>\n</ul>\n",
+        "returns": [],
+        "returns_gfm": "",
+        "signature": "MacroPad:bindHotkeys(mapping)",
+        "stripped_doc": "",
+        "type": "Method"
+      },
+      {
+        "def": "MacroPad:raiseHand()",
+        "def_gfm": "MacroPad:raiseHand()",
+        "desc": "It toggles the raised hand state on the first application it finds.",
+        "doc": "It toggles the raised hand state on the first application it finds.\n\nParameters:\n * None",
+        "doc_gfm": "<p>It toggles the raised hand state on the first application it finds.</p>\n<p>Parameters:</p>\n<ul>\n<li>None</li>\n</ul>\n",
+        "examples": [],
+        "file": "Source/MacroPad.spoon/init.lua",
+        "lineno": "54",
+        "name": "raiseHand",
+        "notes": [],
+        "notes_gfm": "",
+        "parameters": [
+          " * None"
+        ],
+        "parameters_gfm": "<ul>\n<li>None</li>\n</ul>\n",
+        "returns": [],
+        "returns_gfm": "",
+        "signature": "MacroPad:raiseHand()",
+        "stripped_doc": "",
+        "type": "Method"
+      },
+      {
+        "def": "MacroPad:toggleMute()",
+        "def_gfm": "MacroPad:toggleMute()",
+        "desc": "It toggles the microphone mute state on the first application it finds.",
+        "doc": "It toggles the microphone mute state on the first application it finds.\n\nParameters:\n * None",
+        "doc_gfm": "<p>It toggles the microphone mute state on the first application it finds.</p>\n<p>Parameters:</p>\n<ul>\n<li>None</li>\n</ul>\n",
+        "examples": [],
+        "file": "Source/MacroPad.spoon/init.lua",
+        "lineno": "37",
+        "name": "toggleMute",
+        "notes": [],
+        "notes_gfm": "",
+        "parameters": [
+          " * None"
+        ],
+        "parameters_gfm": "<ul>\n<li>None</li>\n</ul>\n",
+        "returns": [],
+        "returns_gfm": "",
+        "signature": "MacroPad:toggleMute()",
+        "stripped_doc": "",
+        "type": "Method"
+      }
+    ],
+    "name": "MacroPad",
+    "stripped_doc": "It provides some useful functions and controls the LEDs on the board (not yet).\n\nThings like mute and raiseHand support common meeting apps I use. If you need another one,\nfeel free to add the keyStrokes to the lists.\n",
+    "submodules": [],
+    "type": "Module"
+  }
+]
