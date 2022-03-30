@@ -1,0 +1,25 @@
+[
+  {
+    "desc": "This is a helper module for the JC Pro Macro 2 Pad. It needs appropiate code on the board!",
+    "name": "MacroPad",
+    "type": "Module"
+  },
+  {
+    "desc": "Binds hotkeys for ReloadConfiguration",
+    "module": "MacroPad",
+    "name": "bindHotkeys",
+    "type": "Method"
+  },
+  {
+    "desc": "It toggles the raised hand state on the first application it finds.",
+    "module": "MacroPad",
+    "name": "raiseHand",
+    "type": "Method"
+  },
+  {
+    "desc": "It toggles the microphone mute state on the first application it finds.",
+    "module": "MacroPad",
+    "name": "toggleMute",
+    "type": "Method"
+  }
+]

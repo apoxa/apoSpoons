@@ -1,9 +1,18 @@
+--- === MacroPad ===
+---
+--- This is a helper module for the JC Pro Macro 2 Pad. It needs appropiate code on the board!
+--- It provides some useful functions and controls the LEDs on the board (not yet).
+---
+--- Things like mute and raiseHand support common meeting apps I use. If you need another one,
+--- feel free to add the keyStrokes to the lists.
+---
+
 local obj = {}
 obj.__index = obj
 
 -- Metadata
 obj.name = "MacroPad"
-obj.version = "0.1"
+obj.version = "0.1.0"
 obj.author = "Benjamin Stier <ben@unpatched.de>"
 obj.homepage = "https://github.com/apoxa/hammerspoon-macropad"
 obj.license = "MIT - https://opensource.org/licenses/MIT"
@@ -25,6 +34,12 @@ function obj:bindHotkeys(mapping)
     hs.spoons.bindHotkeysToSpec(def, mapping)
 end
 
+--- MacroPad:toggleMute()
+--- Method
+--- It toggles the microphone mute state on the first application it finds.
+---
+--- Parameters:
+---  * None
 function obj:toggleMute()
     self.logger.d("toggleMute triggered")
     local AppMuteButtons = {
@@ -36,6 +51,12 @@ function obj:toggleMute()
     tryAppButtons(AppMuteButtons)
 end
 
+--- MacroPad:raiseHand()
+--- Method
+--- It toggles the raised hand state on the first application it finds.
+---
+--- Parameters:
+---  * None
 function obj:raiseHand()
     self.logger.d("raiseHand triggered")
     local AppRaiseButtons = {
