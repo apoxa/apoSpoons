@@ -17,7 +17,13 @@ obj.author = "Benjamin Stier <ben@unpatched.de>"
 obj.homepage = "https://github.com/apoxa/hammerspoon-macropad"
 obj.license = "MIT - https://opensource.org/licenses/MIT"
 
-obj.logger = hs.logger.new('MacroPad', 'info')
+obj.logger = hs.logger.new('MacroPad')
+
+--- MacroPad.serialPort
+--- Variable
+--- The Serial port where the MacroPad is connected.
+--- Default is usbmodemHIDPH1
+obj.serialPort = 'usbmodemHIDPH1'
 
 --- MacroPad:bindHotkeys(mapping)
 --- Method
@@ -74,6 +80,15 @@ function tryAppButtons(AppButtons)
             hs.eventtap.keyStroke(buttons[1], buttons[2], 0, app)
             break
         end
+    end
+end
+
+function sendSerial(data)
+    local _serialPort = hs.serial.newFromName(obj.serialPort)
+    if _serialPort ~= nil then
+        _serialPort:open()
+        _serialPort:sendData(data)
+        _serialPort:close()
     end
 end
 
