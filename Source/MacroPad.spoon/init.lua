@@ -47,14 +47,10 @@ end
 --- Parameters:
 ---  * None
 function obj:toggleMute()
-    self.logger.d("toggleMute triggered")
-    local AppMuteButtons = {
-        ['bbb'] = {{"ctrl", "alt"}, "m"},
-        ['com.microsoft.teams'] = {{"cmd", "shift"}, "m"},
-        ['us.zoom.xos'] = {{"cmd", "shift"}, "m"},
-        ['com.hnc.Discord'] = {{"cmd", "shift"}, "a"}
-    }
-    tryAppButtons(AppMuteButtons)
+    self.logger.v("toggleMute triggered")
+    self:tryAppButtons('muteButtons', hs.fnutils.filter(self.meetingApps, function(meetingApp)
+        return meetingApp.muteButtons ~= nil
+    end))
 end
 
 --- MacroPad:raiseHand()
@@ -64,20 +60,20 @@ end
 --- Parameters:
 ---  * None
 function obj:raiseHand()
-    self.logger.d("raiseHand triggered")
-    local AppRaiseButtons = {
-        ['bbb'] = {{"ctrl", "alt"}, "r"},
-        ['com.microsoft.teams'] = {{"cmd", "shift"}, "k"},
-        ['us.zoom.xos'] = {{"alt"}, "y"}
-    }
-    tryAppButtons(AppRaiseButtons)
+    self.logger.v("raiseHand triggered")
+    self:tryAppButtons('raiseHandButtons', hs.fnutils.filter(self.meetingApps, function(meetingApp)
+        return meetingApp.raiseHandButtons ~= nil
+    end))
 end
 
-function tryAppButtons(AppButtons)
-    for application, buttons in pairs(AppButtons) do
+function obj:tryAppButtons(buttonType, apps)
+    apps = apps or {}
+    for application in pairs(apps) do
         local app = hs.application.get(application)
-        if not (app == nil) then
-            hs.eventtap.keyStroke(buttons[1], buttons[2], 0, app)
+        if app ~= nil then
+            buttons = self.meetingApps[application]
+            self.logger.df("found app for keyStrokes: %s\n", application)
+            hs.eventtap.keyStroke(buttons[buttonType][1], buttons[buttonType][2], 0, app)
             break
         end
     end
@@ -90,6 +86,26 @@ function sendSerial(data)
         _serialPort:sendData(data)
         _serialPort:close()
     end
+end
+
+function obj:init()
+    self.meetingApps = {
+        ['bbb'] = {
+            muteButtons = {{'ctrl', 'alt'}, 'm'},
+            raiseHandButtons = {{'ctrl', 'alt'}, 'r'},
+        },
+        ['com.microsoft.teams'] = {
+            muteButtons = {{'cmd', 'shift'}, 'm'},
+            raiseHandButtons = {{'cmd', 'shift'}, 'k'},
+        },
+        ['us.zoom.xos'] = {
+            muteButtons = {{'cmd', 'shift'}, 'm'},
+            raiseHandButtons = {'alt', 'y'},
+        },
+        ['com.hnc.Discord'] = {
+            muteButtons = {{"cmd", "shift"}, "a"},
+        },
+    }
 end
 
 return obj
