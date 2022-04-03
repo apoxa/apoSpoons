@@ -25,6 +25,24 @@ obj.logger = hs.logger.new('MacroPad')
 --- Default is usbmodemHIDPH1
 obj.serialPort = 'usbmodemHIDPH1'
 
+--- MacroPad.muteLED
+--- Variable
+--- A table with an LED definition for the Mute buttons
+---
+--- Notes:
+--- * {
+---      number = 0,
+---      off = "0 0 0",
+---      muted = "255 0 0",
+---      unmuted = "0 255 0",
+--- *}
+obj.muteLED = {
+    number = 0,
+    off = "0 0 0",
+    muted = "255 0 0",
+    unmuted = "0 255 0",
+}
+
 --- MacroPad:bindHotkeys(mapping)
 --- Method
 --- Binds hotkeys for ReloadConfiguration
@@ -48,9 +66,16 @@ end
 ---  * None
 function obj:toggleMute()
     self.logger.v("toggleMute triggered")
-    self:tryAppButtons('muteButtons', hs.fnutils.filter(self.meetingApps, function(meetingApp)
+    triggeredApp = self:tryAppButtons('muteButtons', hs.fnutils.filter(self.meetingApps, function(meetingApp)
         return meetingApp.muteButtons ~= nil
     end))
+    if triggeredApp == nil then return end
+    if (self.meetingApps[triggeredApp].checkAudio ~= nil) then
+        state = self.meetingApps[triggeredApp].checkAudio() or 'off'
+        self.logger.df("Current Mic State in %s is %s", triggeredApp, state)
+        self.logger.df("Sending LED to %s with color %s", self.muteLED.number, self.muteLED[state])
+        self:_sendSerial(string.format("LED %s %s\r\n", self.muteLED.number, self.muteLED[state]))
+    end
 end
 
 --- MacroPad:raiseHand()
@@ -74,17 +99,58 @@ function obj:tryAppButtons(buttonType, apps)
             buttons = self.meetingApps[application]
             self.logger.df("found app for keyStrokes: %s\n", application)
             hs.eventtap.keyStroke(buttons[buttonType][1], buttons[buttonType][2], 0, app)
-            break
+            return application
         end
     end
 end
 
-function sendSerial(data)
+function obj:_sendSerial(data)
     local _serialPort = hs.serial.newFromName(obj.serialPort)
     if _serialPort ~= nil then
         _serialPort:open()
         _serialPort:sendData(data)
         _serialPort:close()
+    end
+end
+
+function obj:_checkZoomAudio()
+    local check = hs.application.get("us.zoom.xos")
+    if (check ~= nil) then
+        if check:findMenuItem({"Meeting", "Unmute Audio"}) then
+            return 'muted'
+        elseif check:findMenuItem({"Meeting", "Mute Audio"}) then
+            return "unmuted"
+        else
+            return "off"
+        end
+    end
+end
+
+function obj:_checkTeamsAudio()
+    local check = hs.application.get("com.microsoft.teams")
+    local axApp = hs.axuielement.applicationElement(check)
+    -- Fix accessability API in electron App
+    axApp:setAttributeValue('AXManualAccessibility', true)
+    -- AXDescription = "Mute (⌘+Shift+M)"
+    -- AXDescription = "Unmute (⌘+Shift+M)",
+    MicButtonSearch = hs.axuielement.searchCriteriaFunction({
+        { attribute = "AXDOMIdentifier", value = "microphone-button" }
+    })
+    for i, window in ipairs(axApp.AXWindows) do
+        if window.AXTitle:match('Meeting in') then
+            axMicButton = window:elementSearch(nil, MicButtonSearch, {noCallback = true})[1]
+            if axMicButton == nil then
+                self.logger.d("Can't find Teams Mic Mute Button")
+                return
+            end
+            if axMicButton.AXDescription:match("Unmute") then
+                return 'muted'
+            elseif axMicButton.AXDescription:match("Mute") then
+                return 'unmuted'
+            else
+                return 'off'
+            end
+        end
     end
 end
 
@@ -97,10 +163,12 @@ function obj:init()
         ['com.microsoft.teams'] = {
             muteButtons = {{'cmd', 'shift'}, 'm'},
             raiseHandButtons = {{'cmd', 'shift'}, 'k'},
+            checkAudio = hs.fnutils.partial(self._checkTeamsAudio, self),
         },
         ['us.zoom.xos'] = {
             muteButtons = {{'cmd', 'shift'}, 'm'},
             raiseHandButtons = {'alt', 'y'},
+            checkAudio = hs.fnutils.partial(self._checkZoomAudio, self),
         },
         ['com.hnc.Discord'] = {
             muteButtons = {{"cmd", "shift"}, "a"},
