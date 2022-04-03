@@ -13,7 +13,7 @@
         "doc": "Binds hotkeys for ReloadConfiguration\n\nParameters:\n * mapping - A table containing hotkey modifier/key details for the following items:\n  * toggleMute - This will toggle MicMute in meeting apps like Teams and Zoom",
         "examples": [],
         "file": "Source/MacroPad.spoon//init.lua",
-        "lineno": "22",
+        "lineno": "46",
         "name": "bindHotkeys",
         "notes": [],
         "parameters": [
@@ -30,7 +30,7 @@
         "doc": "It toggles the raised hand state on the first application it finds.\n\nParameters:\n * None",
         "examples": [],
         "file": "Source/MacroPad.spoon//init.lua",
-        "lineno": "54",
+        "lineno": "81",
         "name": "raiseHand",
         "notes": [],
         "parameters": [
@@ -47,7 +47,7 @@
         "doc": "It toggles the microphone mute state on the first application it finds.\n\nParameters:\n * None",
         "examples": [],
         "file": "Source/MacroPad.spoon//init.lua",
-        "lineno": "37",
+        "lineno": "61",
         "name": "toggleMute",
         "notes": [],
         "parameters": [
@@ -59,7 +59,38 @@
         "type": "Method"
       }
     ],
-    "Variable": [],
+    "Variable": [
+      {
+        "def": "MacroPad.muteLED",
+        "desc": "A table with an LED definition for the Mute buttons",
+        "doc": "A table with an LED definition for the Mute buttons\n\nNotes:\n* {\n     number = 0,\n     off = \"0 0 0\",\n     muted = \"255 0 0\",\n     unmuted = \"0 255 0\",\n*}",
+        "file": "Source/MacroPad.spoon//init.lua",
+        "lineno": "28",
+        "name": "muteLED",
+        "notes": [
+          "* {",
+          "     number = 0,",
+          "     off = \"0 0 0\",",
+          "     muted = \"255 0 0\",",
+          "     unmuted = \"0 255 0\",",
+          "*}"
+        ],
+        "signature": "MacroPad.muteLED",
+        "stripped_doc": "",
+        "type": "Variable"
+      },
+      {
+        "def": "MacroPad.serialPort",
+        "desc": "The Serial port where the MacroPad is connected.",
+        "doc": "The Serial port where the MacroPad is connected.\nDefault is usbmodemHIDPH1",
+        "file": "Source/MacroPad.spoon//init.lua",
+        "lineno": "22",
+        "name": "serialPort",
+        "signature": "MacroPad.serialPort",
+        "stripped_doc": "Default is usbmodemHIDPH1",
+        "type": "Variable"
+      }
+    ],
     "desc": "This is a helper module for the JC Pro Macro 2 Pad. It needs appropiate code on the board!",
     "doc": "This is a helper module for the JC Pro Macro 2 Pad. It needs appropiate code on the board!\nIt provides some useful functions and controls the LEDs on the board (not yet).\n\nThings like mute and raiseHand support common meeting apps I use. If you need another one,\nfeel free to add the keyStrokes to the lists.\n",
     "items": [
@@ -69,7 +100,7 @@
         "doc": "Binds hotkeys for ReloadConfiguration\n\nParameters:\n * mapping - A table containing hotkey modifier/key details for the following items:\n  * toggleMute - This will toggle MicMute in meeting apps like Teams and Zoom",
         "examples": [],
         "file": "Source/MacroPad.spoon//init.lua",
-        "lineno": "22",
+        "lineno": "46",
         "name": "bindHotkeys",
         "notes": [],
         "parameters": [
@@ -81,12 +112,31 @@
         "type": "Method"
       },
       {
+        "def": "MacroPad.muteLED",
+        "desc": "A table with an LED definition for the Mute buttons",
+        "doc": "A table with an LED definition for the Mute buttons\n\nNotes:\n* {\n     number = 0,\n     off = \"0 0 0\",\n     muted = \"255 0 0\",\n     unmuted = \"0 255 0\",\n*}",
+        "file": "Source/MacroPad.spoon//init.lua",
+        "lineno": "28",
+        "name": "muteLED",
+        "notes": [
+          "* {",
+          "     number = 0,",
+          "     off = \"0 0 0\",",
+          "     muted = \"255 0 0\",",
+          "     unmuted = \"0 255 0\",",
+          "*}"
+        ],
+        "signature": "MacroPad.muteLED",
+        "stripped_doc": "",
+        "type": "Variable"
+      },
+      {
         "def": "MacroPad:raiseHand()",
         "desc": "It toggles the raised hand state on the first application it finds.",
         "doc": "It toggles the raised hand state on the first application it finds.\n\nParameters:\n * None",
         "examples": [],
         "file": "Source/MacroPad.spoon//init.lua",
-        "lineno": "54",
+        "lineno": "81",
         "name": "raiseHand",
         "notes": [],
         "parameters": [
@@ -98,12 +148,23 @@
         "type": "Method"
       },
       {
+        "def": "MacroPad.serialPort",
+        "desc": "The Serial port where the MacroPad is connected.",
+        "doc": "The Serial port where the MacroPad is connected.\nDefault is usbmodemHIDPH1",
+        "file": "Source/MacroPad.spoon//init.lua",
+        "lineno": "22",
+        "name": "serialPort",
+        "signature": "MacroPad.serialPort",
+        "stripped_doc": "Default is usbmodemHIDPH1",
+        "type": "Variable"
+      },
+      {
         "def": "MacroPad:toggleMute()",
         "desc": "It toggles the microphone mute state on the first application it finds.",
         "doc": "It toggles the microphone mute state on the first application it finds.\n\nParameters:\n * None",
         "examples": [],
         "file": "Source/MacroPad.spoon//init.lua",
-        "lineno": "37",
+        "lineno": "61",
         "name": "toggleMute",
         "notes": [],
         "parameters": [
