@@ -5,6 +5,18 @@
     "type": "Module"
   },
   {
+    "desc": "A table with an LED definition for the Mute buttons",
+    "module": "MacroPad",
+    "name": "muteLED",
+    "type": "Variable"
+  },
+  {
+    "desc": "The Serial port where the MacroPad is connected.",
+    "module": "MacroPad",
+    "name": "serialPort",
+    "type": "Variable"
+  },
+  {
     "desc": "Binds hotkeys for ReloadConfiguration",
     "module": "MacroPad",
     "name": "bindHotkeys",
