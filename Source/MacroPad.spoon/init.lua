@@ -134,15 +134,12 @@ function obj:_checkTeamsAudio()
     -- AXDescription = "Mute (⌘+Shift+M)"
     -- AXDescription = "Unmute (⌘+Shift+M)",
     MicButtonSearch = hs.axuielement.searchCriteriaFunction({
-        { attribute = "AXDOMIdentifier", value = "microphone-button" }
+        { attribute = "AXRole", value = "AXButton"}, { attribute = "AXDOMIdentifier", value = "microphone-button" }
     })
+    -- find window with Mute Button
     for i, window in ipairs(axApp.AXWindows) do
-        if window.AXTitle:match('Meeting in') then
-            axMicButton = window:elementSearch(nil, MicButtonSearch, {noCallback = true})[1]
-            if axMicButton == nil then
-                self.logger.d("Can't find Teams Mic Mute Button")
-                return
-            end
+        axMicButton = window:elementSearch(nil, MicButtonSearch, {depth = 9, noCallback = true})[1]
+        if axMicButton ~= nil then
             if axMicButton.AXDescription:match("Unmute") then
                 return 'muted'
             elseif axMicButton.AXDescription:match("Mute") then
@@ -150,6 +147,7 @@ function obj:_checkTeamsAudio()
             else
                 return 'off'
             end
+            return
         end
     end
 end
