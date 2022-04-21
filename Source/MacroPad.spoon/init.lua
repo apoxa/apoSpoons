@@ -29,7 +29,7 @@ obj.author = "Benjamin Stier <ben@unpatched.de>"
 obj.homepage = "https://github.com/apoxa/hammerspoon-macropad"
 obj.license = "MIT - https://opensource.org/licenses/MIT"
 
-obj.logger = logger.new('MacroPad')
+obj.logger = logger.new('MacroPad', 'verbose')
 
 --- MacroPad.serialPort
 --- Variable
@@ -77,7 +77,7 @@ end
 --- Parameters:
 ---  * None
 function obj:toggleMute()
-    self.logger.v("toggleMute triggered")
+    self.logger.d("toggleMute triggered")
     local mic = audiodevice.defaultInputDevice()
     if not mic:inUse() then
         obj.watchables.micState = 'off'
@@ -95,7 +95,7 @@ end
 --- Parameters:
 ---  * None
 function obj:raiseHand()
-    self.logger.v("raiseHand triggered")
+    self.logger.d("raiseHand triggered")
     self:tryAppButtons('raiseHandButtons', hs.fnutils.filter(self.meetingApps, function(meetingApp)
         return meetingApp.raiseHandButtons ~= nil
     end))
@@ -103,13 +103,13 @@ end
 
 function obj:tryAppButtons(buttonType, apps)
     apps = apps or {}
-    for application in pairs(apps) do
-        local app = application.get(application)
+    for appl in pairs(apps) do
+        local app = application.get(appl)
         if app ~= nil then
-            buttons = self.meetingApps[application]
-            self.logger.df("found app for keyStrokes: %s\n", application)
+            buttons = self.meetingApps[appl]
+            self.logger.df("found app for keyStrokes: %s\n", appl)
             hs.eventtap.keyStroke(buttons[buttonType][1], buttons[buttonType][2], 0, app)
-            return application
+            return appl
         end
     end
 end
@@ -146,8 +146,8 @@ function obj:init()
 end
 
 function obj:start()
-    mic = audiodevice.defaultInputDevice():watcherCallback(function(UID, event, scope, element)
-        obj.logger.df("UID <%s>, event <%s>, scope <%s>, element <%s>", UID, event, scope, element)
+    audiodevice.defaultInputDevice():watcherCallback(function(UID, event, scope, element)
+        obj.logger.vf("UID <%s>, event <%s>, scope <%s>, element <%s>", UID, event, scope, element)
         if (event == 'gone' and scope == 'glob') then
             if audiodevice.findDeviceByUID(UID):inUse() then
                 obj.watchables.micState = audiodevice.findDeviceByUID(UID):inputMuted() and 'muted' or 'unmuted'
@@ -158,15 +158,14 @@ function obj:start()
         if (event == 'mute' and scope == 'inpt') then
             obj.watchables.micState = audiodevice.findDeviceByUID(UID):inputMuted() and 'muted' or 'unmuted'
         end
-    end)
-    mic:watcherStart()
+    end):watcherStart()
     return self
 end
 
 function obj:stop()
     self._micWatcher:release()
     audiodevice.watcher.stop()
-    mic = audiodevice.defaultInputDevice():watcherStop()
+    audiodevice.defaultInputDevice():watcherStop()
     return self
 end
 
